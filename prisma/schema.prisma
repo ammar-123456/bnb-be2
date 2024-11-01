@@ -1,0 +1,192 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+
+// generator client {
+//   provider = "prisma-client-js"
+//   previewFeatures = ["fullTextSearch", "fullTextIndex"]
+// }
+
+// datasource db {
+//   provider = "mongodb"
+//   url      = env("DATABASE_URL")
+//   relationMode = "prisma"
+// }
+
+// model Hotel {
+//   id                   String   @id @default(uuid())
+//   userId               String
+//   title                String   @db.Text
+//   description          String   @db.LongText
+//   image                String
+//   country              String
+//   state                String
+//   city                 String
+//   locationDescription  String   @db.LongText
+//   gym                  Boolean  @default(false) 
+//   spa                  Boolean  @default(false)
+//   bar                  Boolean  @default(false)
+//   laundry              Boolean  @default(false)
+//   restaurant           Boolean  @default(false) 
+//   shopping             Boolean  @default(false)
+//   freeParking          Boolean  @default(false)
+//   bikeRental           Boolean  @default(false)
+//   freeWifi             Boolean  @default(false)
+//   movieNights          Boolean  @default(false)
+//   swimmingPool         Boolean  @default(false)
+//   coffeeShop           Boolean  @default(false)
+//   addedAt             DateTime @default(now())
+//   updatedAt           DateTime @default(now()) 
+//   rooms                Room[]
+//   bookings             Booking[]
+
+//   @@fulltext([title])
+// }
+
+// model Room {
+//   id                   String   @id @default(uuid())
+//   title                String
+//   description          String   @db.LongText // Rättade 'descriptio' till 'description'
+//   bedCount             Int      @default(0)
+//   guestCount           Int      @default(0)
+//   bathroomCount        Int      @default(0)
+//   kingBed              Int      @default(0)
+//   queenBed             Int      @default(0) // Rättade 'queenBen' till 'queenBed'
+//   image                String
+//   breakFastPrice       Int
+//   roomPrice            Int
+//   roomService          Boolean  @default(false)
+//   TV                   Boolean  @default(false)
+//   balcony              Boolean  @default(false)
+//   freeWifi             Boolean  @default(false) // Korrigerade 'freewifi' till 'freeWifi'
+//   cityView             Boolean  @default(false)
+//   oceanView            Boolean  @default(false)
+//   forestView           Boolean  @default(false)
+//   mountainView         Boolean  @default(false)
+//   airCondition         Boolean  @default(false)
+//   soundProofed         Boolean  @default(false)
+
+//   hotel                Hotel?   @relation(fields: [hotelId], references: [id], onDelete: Cascade)
+//   hotelId             String?
+
+//   bookings             Booking[] // Rättade 'Booking' till 'bookings' för konsistens
+
+//   @@index([hotelId])
+// }
+
+// model Booking {
+//   id                   String   @id @default(uuid())
+//   userName             String
+//   userId               String
+//   hotelId              String
+//   roomId               String
+//   hotelOwnerId         String
+//   startDate            DateTime // Rättade 'starData' till 'startDate'
+//   endDate              DateTime // Rättade 'endData' till 'endDate'
+//   breakFastIncluded     Boolean  @default(false)
+//   currency             String
+//   totalPrice           Int
+//   paymentStatus        Boolean  @default(false)
+//   paymentIntentId      String   @unique // Rättade 'paymentIntenId' till 'paymentIntentId'
+//   bookedAt             DateTime @default(now())
+
+//   hotel                Hotel?   @relation(fields: [hotelId], references: [id])
+//   room                 Room?    @relation(fields: [roomId], references: [id])
+
+//   @@index([hotelId])
+//   @@index([roomId])
+// }
+
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Hotel {
+  id                   String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId               String
+  title                String   // Ta bort @db.Text
+  description          String   // Ta bort @db.LongText
+  image                String
+  country              String
+  state                String
+  city                 String
+  locationDescription  String   // Ta bort @db.LongText
+  gym                  Boolean  @default(false) 
+  spa                  Boolean  @default(false)
+  bar                  Boolean  @default(false)
+  laundry              Boolean  @default(false)
+  restaurant           Boolean  @default(false) 
+  shopping             Boolean  @default(false)
+  freeParking          Boolean  @default(false)
+  bikeRental           Boolean  @default(false)
+  freeWifi             Boolean  @default(false)
+  movieNights          Boolean  @default(false)
+  swimmingPool         Boolean  @default(false)
+  coffeeShop           Boolean  @default(false)
+  addedAt             DateTime @default(now())
+  updatedAt           DateTime @default(now()) 
+  rooms                Room[]
+  bookings             Booking[]
+
+}
+
+model Room {
+  id                   String   @id @default(auto()) @map("_id") @db.ObjectId
+  title                String
+  description          String   // Ta bort @db.LongText
+  bedCount             Int      @default(0)
+  guestCount           Int      @default(0)
+  bathroomCount        Int      @default(0)
+  kingBed              Int      @default(0)
+  queenBed             Int      @default(0) // Rättade 'queenBen' till 'queenBed'
+  image                String
+  breakFastPrice       Int
+  roomPrice            Int
+  roomService          Boolean  @default(false)
+  TV                   Boolean  @default(false)
+  balcony              Boolean  @default(false)
+  freeWifi             Boolean  @default(false)
+  cityView             Boolean  @default(false)
+  oceanView            Boolean  @default(false)
+  forestView           Boolean  @default(false)
+  mountainView         Boolean  @default(false)
+  airCondition         Boolean  @default(false)
+  soundProofed         Boolean  @default(false)
+
+  hotel                Hotel?   @relation(fields: [hotelId], references: [id])
+  hotelId             String?
+
+  bookings             Booking[]
+
+}
+
+model Booking {
+  id                   String   @id @default(auto()) @map("_id") @db.ObjectId
+  userName             String
+  userEmail            String
+  userId               String
+  hotelId              String
+  roomId               String
+  hotelOwnerId         String
+  startDate            DateTime
+  endDate              DateTime
+  breakFastIncluded     Boolean  @default(false)
+  currency             String
+  totalPrice           Int
+  paymentStatus        Boolean  @default(false)
+  paymentIntentId      String   @unique
+  bookedAt             DateTime @default(now())
+
+  hotel                Hotel?   @relation(fields: [hotelId], references: [id])
+  room                 Room?    @relation(fields: [roomId], references: [id])
+}
