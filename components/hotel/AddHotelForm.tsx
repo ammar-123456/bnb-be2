@@ -90,6 +90,7 @@ const AddHotelForm = ({hotel}: AddHotelFormprops) => {
 
     const [image, setImage] = useState<string | undefined>(hotel?.image)
     const [imageIsDeleting, setImageIsDeleting] = useState(false)
+    const [isHotelDeleting, setIsHotelDeleting] = useState(false)
     const [states, setState] = useState<IState[]>([])
     const [cities, setCities] = useState<ICity[]>([])
     const [isLoading, setIsLoading] = useState(false)
@@ -162,7 +163,7 @@ const AddHotelForm = ({hotel}: AddHotelFormprops) => {
       function onSubmit(values: z.infer<typeof formSchema>) {
         setIsLoading(true)
         if(hotel){
-          axios.patch("/api/hotel/${hotel.id}", values).then((res) =>{
+          axios.patch(`/api/hotel/${hotel.id}`, values).then((res) =>{
             toast({
               variant: "success",
               description: "Hotel Updated!"
@@ -172,7 +173,7 @@ const AddHotelForm = ({hotel}: AddHotelFormprops) => {
           }).catch((err) =>{
             console.log(err)
             toast({
-              variant: "desctructive",
+              variant: "destructive",
               description: "Something went wrong!"
             })
             setIsLoading(false)
@@ -188,7 +189,7 @@ const AddHotelForm = ({hotel}: AddHotelFormprops) => {
           }).catch((err) =>{
             console.log(err)
             toast({
-              variant: "desctructive",
+              variant: "destructive",
               description: "Something went wrong!"
             })
             setIsLoading(false)
@@ -239,7 +240,7 @@ const AddHotelForm = ({hotel}: AddHotelFormprops) => {
               router.push("/hotel/new")
           } catch (error: any) {
             console.log(error)
-            setIsHotelDeletig(false)
+            setIsHotelDeleting(false)
             toast({
               variant: "destructive",
               description: `Hotel deletion could not be completed! ${error.message}`
@@ -296,7 +297,12 @@ const AddHotelForm = ({hotel}: AddHotelFormprops) => {
                                   render={({ field }) => (
                                       <FormItem>
                                           <FormControl className="flex flex-row items-end space-x-3 rounded-md border p-4">
-                                            <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                                            <input 
+                                              type="checkbox" 
+                                              {...field}
+                                              value={undefined}
+                                              checked={field.value} 
+                                              onChange={(e) => field.onChange(e.target.checked)} />
                                           </FormControl>
                                         <FormLabel>Gym</FormLabel>
                                       </FormItem>
@@ -308,7 +314,12 @@ const AddHotelForm = ({hotel}: AddHotelFormprops) => {
                                   render={({ field }) => (
                                       <FormItem>
                                           <FormControl className="flex flex-row items-end space-x-3 rounded-md border p-4">
-                                            <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                                          <input 
+                                              type="checkbox" 
+                                              {...field}
+                                              value={undefined}
+                                              checked={field.value} 
+                                              onChange={(e) => field.onChange(e.target.checked)} />
                                           </FormControl>
                                         <FormLabel>Spa</FormLabel>
                                       </FormItem>
@@ -320,7 +331,12 @@ const AddHotelForm = ({hotel}: AddHotelFormprops) => {
                                   render={({ field }) => (
                                       <FormItem>
                                           <FormControl className="flex flex-row items-end space-x-3 rounded-md border p-4">
-                                            <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                                          <input 
+                                              type="checkbox" 
+                                              {...field}
+                                              value={undefined}
+                                              checked={field.value} 
+                                              onChange={(e) => field.onChange(e.target.checked)} />
                                           </FormControl>
                                         <FormLabel>Bar</FormLabel>
                                       </FormItem>
@@ -332,7 +348,12 @@ const AddHotelForm = ({hotel}: AddHotelFormprops) => {
                                   render={({ field }) => (
                                       <FormItem>
                                           <FormControl className="flex flex-row items-end space-x-3 rounded-md border p-4">
-                                            <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                                          <input 
+                                              type="checkbox" 
+                                              {...field}
+                                              value={undefined}
+                                              checked={field.value} 
+                                              onChange={(e) => field.onChange(e.target.checked)} />
                                           </FormControl>
                                         <FormLabel>Laundry Facilities</FormLabel>
                                       </FormItem>
@@ -344,7 +365,12 @@ const AddHotelForm = ({hotel}: AddHotelFormprops) => {
                                   render={({ field }) => (
                                       <FormItem>
                                           <FormControl className="flex flex-row items-end space-x-3 rounded-md border p-4">
-                                            <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                                          <input 
+                                              type="checkbox" 
+                                              {...field}
+                                              value={undefined}
+                                              checked={field.value} 
+                                              onChange={(e) => field.onChange(e.target.checked)} />
                                           </FormControl>
                                         <FormLabel>Restaurant</FormLabel>
                                       </FormItem>
@@ -356,7 +382,12 @@ const AddHotelForm = ({hotel}: AddHotelFormprops) => {
                                   render={({ field }) => (
                                       <FormItem>
                                           <FormControl className="flex flex-row items-end space-x-3 rounded-md border p-4">
-                                            <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                                          <input 
+                                              type="checkbox" 
+                                              {...field}
+                                              value={undefined}
+                                              checked={field.value} 
+                                              onChange={(e) => field.onChange(e.target.checked)} />
                                           </FormControl>
                                         <FormLabel>Shopping</FormLabel>
                                       </FormItem>
@@ -368,7 +399,12 @@ const AddHotelForm = ({hotel}: AddHotelFormprops) => {
                                   render={({ field }) => (
                                       <FormItem>
                                           <FormControl className="flex flex-row items-end space-x-3 rounded-md border p-4">
-                                            <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                                          <input 
+                                              type="checkbox" 
+                                              {...field}
+                                              value={undefined}
+                                              checked={field.value} 
+                                              onChange={(e) => field.onChange(e.target.checked)} />
                                           </FormControl>
                                         <FormLabel>Free Parking</FormLabel>
                                       </FormItem>
@@ -380,7 +416,12 @@ const AddHotelForm = ({hotel}: AddHotelFormprops) => {
                                   render={({ field }) => (
                                       <FormItem>
                                           <FormControl className="flex flex-row items-end space-x-3 rounded-md border p-4">
-                                            <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                                          <input 
+                                              type="checkbox" 
+                                              {...field}
+                                              value={undefined}
+                                              checked={field.value} 
+                                              onChange={(e) => field.onChange(e.target.checked)} />
                                           </FormControl>
                                         <FormLabel>Bike Rental</FormLabel>
                                       </FormItem>
@@ -392,7 +433,12 @@ const AddHotelForm = ({hotel}: AddHotelFormprops) => {
                                   render={({ field }) => (
                                       <FormItem>
                                           <FormControl className="flex flex-row items-end space-x-3 rounded-md border p-4">
-                                            <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                                          <input 
+                                              type="checkbox" 
+                                              {...field}
+                                              value={undefined}
+                                              checked={field.value} 
+                                              onChange={(e) => field.onChange(e.target.checked)} />
                                           </FormControl>
                                         <FormLabel>Movie Nights</FormLabel>
                                       </FormItem>
@@ -404,7 +450,12 @@ const AddHotelForm = ({hotel}: AddHotelFormprops) => {
                                   render={({ field }) => (
                                       <FormItem>
                                           <FormControl className="flex flex-row items-end space-x-3 rounded-md border p-4">
-                                            <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                                          <input 
+                                              type="checkbox" 
+                                              {...field}
+                                              value={undefined}
+                                              checked={field.value} 
+                                              onChange={(e) => field.onChange(e.target.checked)} />
                                           </FormControl>
                                         <FormLabel>Swimming Pool</FormLabel>
                                       </FormItem>
@@ -412,11 +463,16 @@ const AddHotelForm = ({hotel}: AddHotelFormprops) => {
                               />
                               <FormField
                                 control={form.control}
-                                  name="coffeeshop"
+                                  name="coffeeShop"
                                   render={({ field }) => (
                                       <FormItem>
                                           <FormControl className="flex flex-row items-end space-x-3 rounded-md border p-4">
-                                            <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                                          <input 
+                                              type="checkbox" 
+                                              {...field}
+                                              value={undefined}
+                                              checked={field.value} 
+                                              onChange={(e) => field.onChange(e.target.checked)} />
                                           </FormControl>
                                         <FormLabel>Coffee Shop</FormLabel>
                                       </FormItem>
@@ -644,7 +700,7 @@ const AddHotelForm = ({hotel}: AddHotelFormprops) => {
                                    <Plus className= "mr-2 h-4 w-4"/> Add Room 
                                   </Button>
                                 </DialogTrigger>
-                                <DialogContent className="max-w-[900px] w-90%">
+                                <DialogContent className="max-w-[900px] w-90% overflow-y-auto">
                                   <DialogHeader className="px-2">
                                     <DialogTitle>Add a Room</DialogTitle>
                                     <DialogDescription>

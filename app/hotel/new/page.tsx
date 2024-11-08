@@ -14,7 +14,7 @@ const Hotel = async ({params}: HotelPageProps) => {
     if (!userId) return <div>Nots authenticated...</div>
 
     return ( <div>
-        <AddHotelForm /  > 
+        <AddHotelForm /> 
     </div> );
 }
 

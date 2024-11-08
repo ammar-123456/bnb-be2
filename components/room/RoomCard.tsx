@@ -14,7 +14,6 @@
 // import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
 // import AddRoomForm from "./AddRoomForm";
 // import axios from "axios";
-// import { useRouter } from "next/router";
 // import { useToast } from "@/hooks/use-toast";
 
 
@@ -181,6 +180,10 @@ const RoomCard = ({ hotel, room, bookings = [] }: RoomCardProps) => {
     const { toast } = useToast();
     const { userId } = useAuth()
     const isHotelDetailsPage = pathname.includes("hotel-details");
+    const isBookRoom = pathname.includes("book-room")
+
+    console.log(bookingIsLoading)
+
 
     useEffect(() =>{
         if(date && date.from && date.to){
@@ -207,7 +210,7 @@ const RoomCard = ({ hotel, room, bookings = [] }: RoomCardProps) => {
 
     const disabledDates = useMemo(() =>{
         let dates: Date[] = []
-        const roomBookings = bookings.filter(booking => booking.roomId === room.id)
+        const roomBookings = bookings.filter(booking => booking.roomId === room.id && booking.paymentStatus)
 
         roomBookings.forEach(booking =>{
             const range = eachDayOfInterval({
@@ -260,6 +263,7 @@ const RoomCard = ({ hotel, room, bookings = [] }: RoomCardProps) => {
     };
 
     const handleBookRoom = () =>{
+        console.log("Booking room")
         if(!userId) return toast({
             variant: "destructive",
             description: "Oops! Make sure you are logged in."
@@ -290,7 +294,7 @@ const RoomCard = ({ hotel, room, bookings = [] }: RoomCardProps) => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    booing:{
+                    booking:{
                         hotelOwnerId: hotel.userId,
                         hotelId: hotel.id,
                         roomId: room.id,
@@ -308,7 +312,8 @@ const RoomCard = ({ hotel, room, bookings = [] }: RoomCardProps) => {
                 }
 
                 return res.json()
-            }).then(data => {
+            }).then((data:Booking) => {
+                console.log(data)
                 setClientSecret(data.paymenIntent.Client_secret)
                 setPaymentIntentId(data.paymenIntent.id)
                 router.push("/book-room")
@@ -362,7 +367,7 @@ const RoomCard = ({ hotel, room, bookings = [] }: RoomCardProps) => {
                 </div>
                 <Separator />
             </CardContent>
-            <CardFooter>
+            {!isBookRoom && <CardFooter>
                 {isHotelDetailsPage ? 
                 <> 
                     <div className="flex flex-col gap-6">
@@ -378,7 +383,7 @@ const RoomCard = ({ hotel, room, bookings = [] }: RoomCardProps) => {
                         </div>)
                     }
                     <div>Total Price: <span className="font-bold">${totalPrice}</span >for<span className="font-bold">{days} Days</span></div>
-                    <Button onClick={() => handleBookRoom} disabled={bookingIsLoading} type="button">
+                    <Button onClick={handleBookRoom} disabled={bookingIsLoading} type="button">
                         {bookingIsLoading ? <Loader2 className="mr-2 h-4 w-4"/> : <Wand className="mr-2 h-4 w-4"/>}
                         {bookingIsLoading ? "Loading..." : "Book Room"}
                     </Button></>
@@ -394,7 +399,7 @@ const RoomCard = ({ hotel, room, bookings = [] }: RoomCardProps) => {
                                     <Pencil className="mr-2 h-4 w-4" /> Update Room
                                 </Button>
                             </DialogTrigger>
-                            <DialogContent className="max-w-[900px] w-90%">
+                            <DialogContent className="max-w-[900px] w-90% overflow-y-auto">
                                 <DialogHeader className="px-2">
                                     <DialogTitle>Update Room</DialogTitle>
                                     <DialogDescription>Make changes to this room.</DialogDescription>
@@ -404,7 +409,7 @@ const RoomCard = ({ hotel, room, bookings = [] }: RoomCardProps) => {
                         </Dialog>
                     </div>
                 )}
-            </CardFooter>
+            </CardFooter> }
         </Card>
     );
 };

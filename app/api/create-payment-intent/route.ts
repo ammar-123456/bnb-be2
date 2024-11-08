@@ -1,13 +1,7 @@
 import prismadb from "@/lib/prismadb";
 import { currentUser } from "@clerk/nextjs/server";
-import { Currency } from "lucide-react";
 import { NextResponse } from "next/server";
-import Stripe from "stripe"
 import { Booking } from "@prisma/client";
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string,{
-    apiVersion: "2024-09-30.acacia"
-});
 
 export async function POST(req: Request){
     const user = await currentUser();
@@ -40,37 +34,36 @@ export async function POST(req: Request){
 
     if(foundBooking && payment_intent_id){
         //apdate
-        const Currency_intent = stripe.paymentIntents.retrieve(payment_intent_id)
-            const updated_intent = await stripe.paymentIntents.update(payment_intent_id,{
-                amount: booking.totalPrice * 100
-            })
-
-            const res = await prismadb.booking.update({
+        try {
+            const updatedBooking = await prismadb.booking.update({
                 where: {paymentIntentId : payment_intent_id, userId: user.id},
                 data: bookingData
             })
-
-            if(!res){
-                return NextResponse.error()
-            }
-
-            return NextResponse.json({paymentIntent: updated_intent})
+            
+            return NextResponse.json(updatedBooking)
+        } catch (error: any) {
+            console.log("Error updating booking:", error)
+            return NextResponse.json({
+                message: "Booking to updated not found"
+            }, { status: 404})
+        }
     }else{
         //create
-        const paymenIntent = await stripe.paymentIntents.create({
-            amount: booking.totalPrice * 100,
-            currency: bookingData.currency,
-            automatic_payment_methods: {enabled: true}
-        }) 
+        const paymenIntentId = Math.floor(Math.random() * 1000000)
 
-        bookingData.paymentIntentId = paymenIntent.id;
-
-        await prismadb.booking.create({
-            data: bookingData
-        })
-
-        return NextResponse.json({paymenIntent})
+        bookingData.paymentIntentId = paymenIntentId.toString()
+        try {
+            const newBooking = await prismadb.booking.create({
+                data: bookingData
+            })
+            
+            return NextResponse.json(newBooking)
+        } catch (error: any) {
+            console.log("Error creating booking:", error)
+            return NextResponse.json({
+                message: "Booking could not be created"
+            }, { status: 400})
+        }
     }
 
-    return new NextResponse("Internal Server Error", {status: 500});
 }

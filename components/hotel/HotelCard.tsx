@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { HotelWithRooms } from "./AddHotelForm";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Dumbbell, MapPin, Waves } from "lucide-react";
 import useLocation from "@/hooks/useLocation";
@@ -10,6 +10,7 @@ import { Country } from "country-state-city";
 import AmenityItem from "../AmenityItem";
 import { Button } from "../ui/button";
 import { FaSwimmer } from "react-icons/fa";
+import { cn } from "@/lib/utils";
 
 const HotelCard = ({hotel}:{hotel: HotelWithRooms}) => {
     
@@ -30,19 +31,19 @@ const HotelCard = ({hotel}:{hotel: HotelWithRooms}) => {
                 <div className="text-primary/90">{hotel.description.substring(0, 45)}...</div>
                 <div className="text-primary/90">
                     <AmenityItem>
-                        <MapPin className="w-4 h-4"/> {Country?.name},{hotel.city}
+                        <MapPin className="w-4 h-4"/> {country?.name},{hotel.city}
                     </AmenityItem>
                     {hotel.swimmingPool && <AmenityItem><FaSwimmer size={18}/>Pool</AmenityItem>}
                     {hotel.gym && <AmenityItem><Dumbbell className="w-4 h-4"/>Gym</AmenityItem>}
                 </div>
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-1">
-                        {hotel?.rooms[0]?.roomPrice && <>
+                        {hotel.rooms?.length > 0 && hotel?.rooms[0]?.roomPrice && <>
                             <div className="font-semibold text-base">${hotel?.rooms[0].roomPrice}</div>
                             <div className="text-xs">24hrs</div>
                         </>}
                     </div>
-                    {isMyHotels && <Button onClick = {() => router.push(`/hotel${hotel.id}`)} variant= "outline">Edit</Button>}
+                    {isMyHotels && <Button onClick = {() => router.push(`/hotel/${hotel.id}`)} variant= "outline">Edit</Button>}
                 </div>
             </div>
         </div>

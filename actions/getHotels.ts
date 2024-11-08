@@ -78,7 +78,7 @@ export const getHotels = async (searchParams: {
         const{title, country, state, city} = searchParams;
         const hotels = await prisma.hotel.findMany()
         console.log(hotels)
-        return [];
+        return hotels;
     } catch (error: any) {
         console.log(error);
         return []

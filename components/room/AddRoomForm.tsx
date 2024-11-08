@@ -14,7 +14,7 @@ import axios from "axios";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, Pencil, PencilLine, XCircle } from "lucide-react";
 import { UploadButton } from "../uploadthing";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 
 interface AddHotelFormprops{
@@ -123,12 +123,12 @@ const AddRoomForm = ({hotel, room, handleDialogueOpen}:AddHotelFormprops) => {
       function onSubmit(values: z.infer<typeof formSchema>) {
         setIsLoading(true)
         if(hotel && room){
-          axios.patch("/api/room/${room.id}", values).then((res) =>{
+          axios.patch(`/api/room/${room.id}`, values).then((res) =>{
             toast({
               variant: "success",
               description: "Room Updated!"
             })
-            router.reload()
+            router.refresh()
               setIsLoading(false)
               handleDialogueOpen()
           }).catch((err) =>{
@@ -146,7 +146,7 @@ const AddRoomForm = ({hotel, room, handleDialogueOpen}:AddHotelFormprops) => {
                 variant: "success",
                 description: "Room created!"
               })
-              router.reload()
+              router.refresh()
               setIsLoading(false)
               handleDialogueOpen()
           }).catch((err) =>{

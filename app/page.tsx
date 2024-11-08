@@ -12,12 +12,13 @@ interface HomeProps {
 
 export default async function Home({ searchParams }: HomeProps) {
   const hotels = await getHotels(searchParams);
+  console.log(hotels)
 
   if (hotels.length === 0) return <div>No hotels found....</div>;
 
   return (
     <div>
-      <HotelList hotels={hotels} />
+      <HotelList hotels = {hotels} />
     </div>
   );
 }
