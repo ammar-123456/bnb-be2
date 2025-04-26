@@ -7,11 +7,11 @@ import { usePathname, useRouter } from "next/navigation";
 
 const SearchInput = () => {
     const pathname = usePathname()
-    const router = useRouter
+    const router = useRouter();
     const [value, setValue] = useState('')
 
-    const onChange: ChangeEventHandler<HTMLInputElement> = (e) = >{
-        setVAlue(e.target.value)
+    const onChange: ChangeEventHandler<HTMLInputElement> = (e) =>{
+        setValue(e.target.value)
     }
 
     return ( <div className="relative sm:block hidden">
