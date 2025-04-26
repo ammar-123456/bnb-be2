@@ -1,4 +1,4 @@
-import { auth } from "@clerk/nextjs/server";
+import { auth } from "@/lib/mock-auth";
 import { NextResponse } from "next/server";
 import { UTApi } from "uploadthing/server";
 

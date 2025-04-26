@@ -1,19 +1,30 @@
 "use client"
 
 import useBookRoom from "@/hooks/useBookRoom"
-import {loadStripe, StripeElementsOptions} from "@stripe/stripe-js"
+// Using mock Stripe implementation
 import RoomCard from "../room/RoomCard"
-import {Elements} from "@stripe/react-stripe-js"
+import {Elements} from "@/components/booking/MockStripeProvider"
+// Mock StripeElementsOptions type
+type StripeElementsOptions = any
+
 import RoomPaymentForm from "./RoomPaymentForm"
 import { useEffect, useState } from "react"
 import { useTheme } from "next-themes"
 import { Value } from "@radix-ui/react-select"
 import { useRouter } from "next/navigation"
 import { Button } from "../ui/button"
+import { useAuth } from "@/lib/mock-auth";
 
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string)
-
+// Using mock Stripe implementation instead of real Stripe
+const stripePromise = { 
+    // Mock implementation that returns a Promise resolving to a mock Stripe instance
+    then: (callback: any) => callback({
+      elements: () => ({}),
+      confirmPayment: async () => ({ paymentIntent: { id: `pi_mock_${Date.now()}`, status: 'succeeded' }, error: null })
+    })
+  }
+  
 const BookRoomClient = () => {
 
     const {bookingRoomData, clientSecret} = useBookRoom()

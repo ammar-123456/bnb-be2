@@ -1,6 +1,6 @@
 import { getHotelById } from "@/actions/getHotelById";
 import AddHotelForm from "@/components/hotel/AddHotelForm";
-import { auth } from "@clerk/nextjs/server";
+import { auth } from "@/lib/mock-auth";
 
 interface HotelPageProps {
     params: {

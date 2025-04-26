@@ -1,4 +1,4 @@
-import {SignUp} from "@clerk/nextjs";
+import {SignUp} from "@/lib/mock-auth";
 
 export default function page() {
     return <SignUp />;
