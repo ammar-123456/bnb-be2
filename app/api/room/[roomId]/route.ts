@@ -1,5 +1,5 @@
-import prismadb from "@/lib/prismadb";
-import { auth } from "@/lib/mock-auth";
+import prismadb from "../../../../lib/prismadb";
+import { auth } from "../../../../lib/mock-auth";
 import { NextResponse } from "next/server";
 
 export async function PATCH(req: Request, {params}: {params: {roomId: string}}){

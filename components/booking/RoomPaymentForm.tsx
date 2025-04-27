@@ -1,9 +1,9 @@
 "use client"
 
-import { useToast } from "@/hooks/use-toast";
-import useBookRoom from "@/hooks/useBookRoom";
+import { useToast } from "../../hooks/use-toast";
+import useBookRoom from "../../hooks/useBookRoom";
 import { Value } from "@prisma/client/runtime/library";
-import { AddressElement, PaymentElement, useElements, useStripe } from "@/components/booking/MockStripeProvider";
+import { AddressElement, PaymentElement, useElements, useStripe } from "../../components/booking/MockStripeProvider";
 import { useEffect, useState } from "react";
 import { Separator } from "../ui/separator";
 import moment from "moment"

@@ -53,18 +53,37 @@
 
 
 
+// import { NextResponse } from 'next/server';
+// import { clerkMiddleware } from '@clerk/nextjs/server';
+
+// export function middleware(req: Request) {
+//   const isClerkDisabled = process.env.NEXT_PUBLIC_DISABLE_CLERK === 'true';
+
+//   if (isClerkDisabled) {
+//     // När Clerk är inaktiverad, returnera en 200 OK response istället för JSON.
+//     const response = NextResponse.next(); // Använd NextResponse.next() för att fortsätta processen
+//     return response;
+//   }
+
+//   // Annars använd Clerk middleware
+//   return clerkMiddleware(req);
+// }
+
+
+
+
 import { NextResponse } from 'next/server';
-import { clerkMiddleware } from '@clerk/nextjs/server';
+
+// Ingen import av clerkMiddleware behövs längre
 
 export function middleware(req: Request) {
-  const isClerkDisabled = process.env.NEXT_PUBLIC_DISABLE_CLERK === 'true';
-
-  if (isClerkDisabled) {
-    // När Clerk är inaktiverad, returnera en 200 OK response istället för JSON.
-    const response = NextResponse.next(); // Använd NextResponse.next() för att fortsätta processen
-    return response;
-  }
-
-  // Annars använd Clerk middleware
-  return clerkMiddleware(req);
+  // Vi använder alltid mock-implementationen, så vi behöver inte kontrollera någon miljövariabel
+  // Returnera bara NextResponse.next() för att fortsätta processen utan autentisering
+  const response = NextResponse.next();
+  return response;
 }
+
+// Definiera matcher för att begränsa middleware till specifika rutter om det behövs
+export const config = {
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+};

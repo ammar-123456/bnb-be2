@@ -17,14 +17,14 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import AddRoomForm from "./AddRoomForm";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "../../hooks/use-toast";
 import { DatePickerWithRange } from "./DateRangePicker";
 import { DateRange } from "react-day-picker";
 import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
 import { Value } from "@radix-ui/react-select";
 import { Checkbox } from "@radix-ui/react-checkbox";
-import { useAuth } from "@/lib/mock-auth";
-import useBookRoom from "@/hooks/useBookRoom";
+import { useAuth } from "../../lib/mock-auth";
+import useBookRoom from "../../hooks/useBookRoom";
 
 interface RoomCardProps {
     hotel?: Hotel & {

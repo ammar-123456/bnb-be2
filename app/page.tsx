@@ -1,5 +1,5 @@
-import { getHotels } from "@/actions/getHotels";
-import HotelList from "@/components/hotel/HotelList";
+import { getHotels } from ".././actions/getHotels";
+import HotelList from ".././components/hotel/HotelList";
 
 interface HomeProps {
   searchParams: {

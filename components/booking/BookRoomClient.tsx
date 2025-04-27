@@ -1,9 +1,9 @@
 "use client"
 
-import useBookRoom from "@/hooks/useBookRoom"
+import useBookRoom from "../../hooks/useBookRoom"
 // Using mock Stripe implementation
 import RoomCard from "../room/RoomCard"
-import {Elements} from "@/components/booking/MockStripeProvider"
+import {Elements} from "../../components/booking/MockStripeProvider"
 // Mock StripeElementsOptions type
 type StripeElementsOptions = any
 
@@ -13,7 +13,7 @@ import { useTheme } from "next-themes"
 import { Value } from "@radix-ui/react-select"
 import { useRouter } from "next/navigation"
 import { Button } from "../ui/button"
-import { useAuth } from "@/lib/mock-auth";
+import { useAuth } from "../../lib/mock-auth";
 
 
 // Using mock Stripe implementation instead of real Stripe

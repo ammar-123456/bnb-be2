@@ -1,6 +1,6 @@
-import { getHotelById } from "@/actions/getHotelById";
-import AddHotelForm from "@/components/hotel/AddHotelForm";
-import { auth } from "@/lib/mock-auth";
+import { getHotelById } from "../../../actions/getHotelById";
+import AddHotelForm from "../../../components/hotel/AddHotelForm";
+import { auth } from "../../../lib/mock-auth";
 
 interface HotelPageProps {
     params: {

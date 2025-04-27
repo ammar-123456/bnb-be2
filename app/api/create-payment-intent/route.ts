@@ -1,5 +1,5 @@
-import prismadb from "@/lib/prismadb";
-import { currentUser } from "@/lib/mock-auth";
+import prismadb from "../../../lib/prismadb";
+import { currentUser } from "../../../lib/mock-auth";
 import { NextResponse } from "next/server";
 import { Booking } from "@prisma/client";
 

@@ -3,13 +3,13 @@
 import * as React from "react"
 import { BookOpenCheck, ChevronsUpDown, Hotel, Plus } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
+import { Button } from "../../components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "../../components/ui/dropdown-menu"
 import { useRouter } from "next/navigation";
 
 export function NavMenu() {

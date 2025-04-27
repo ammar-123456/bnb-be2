@@ -1,5 +1,5 @@
-import prismadb from "@/lib/prismadb";
-import { auth } from "@/lib/mock-auth";
+import prismadb from "../lib/prismadb";
+import { auth } from "../lib/mock-auth";
 
 export const getHotelsByUserId = async () => {
   

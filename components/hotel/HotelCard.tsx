@@ -5,12 +5,12 @@ import { HotelWithRooms } from "./AddHotelForm";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Dumbbell, MapPin, Waves } from "lucide-react";
-import useLocation from "@/hooks/useLocation";
+import useLocation from "../../hooks/useLocation";
 import { Country } from "country-state-city";
 import AmenityItem from "../AmenityItem";
 import { Button } from "../ui/button";
 import { FaSwimmer } from "react-icons/fa";
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 
 const HotelCard = ({hotel}:{hotel: HotelWithRooms}) => {
     

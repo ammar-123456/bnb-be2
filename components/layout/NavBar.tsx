@@ -4,7 +4,7 @@
 "use client";
 
 // Using mock auth implementation instead of Clerk
-import { UserButton, useAuth } from "@/lib/mock-auth";
+import { UserButton, useAuth } from "../../lib/mock-auth";
 import Container from "../Container";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -31,7 +31,7 @@ const NavBar = () => {
                             <ModeToggle/>
                             <NavMenu />
                             </div>
-                        <UserButton afterSignOutUrl="/" />
+                        <UserButton afterSignOutUr1="/" />
                         {!userId ? ( // Kontrollera om userId finns
                             <>
                                 <Button onClick={() => router.push("/sign-in")} variant="outline" size="sm">Sign in</Button>
